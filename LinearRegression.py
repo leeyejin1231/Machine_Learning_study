@@ -12,8 +12,6 @@ class LinearRegression:
 
         """
         The numerical solution of Linear Regression
-        Train the model for 'epochs' times with minibatch size of 'batch_size' using gradient descent.
-        (TIP : if the dataset size is 10, and the minibatch size is set to 3, corresponding minibatch size should be 3, 3, 3, 1)
 
         [Inputs]
             x : input for linear regression. Numpy array of (N, D)
@@ -21,7 +19,7 @@ class LinearRegression:
             epochs : epochs.
             batch_size : size of the batch.
             lr : learning rate.
-            optim : optimizer. (fixed to 'stochastic gradient descent' for this assignment.)
+            optim : optimizer.
 
         [Output]
             None
@@ -35,9 +33,7 @@ class LinearRegression:
         for epoch in range(epochs):
             if batch_gradient:
                 # batch gradient descent
-
-                # ========================= EDIT HERE ========================
-
+                
                 loss_vector = None
                 grad = None
                 s = 0
@@ -46,9 +42,6 @@ class LinearRegression:
                     s += (y[i] - x[i].dot(self.W))*x[i]
 
                 grad = -s/num_data
-
-
-                # ============================================================
 
                 self.W = optim.update(self.W, grad, lr)
             else:
@@ -59,8 +52,6 @@ class LinearRegression:
 
                     num_samples_in_batch = len(batch_x)
 
-                    # ========================= EDIT HERE ========================
-
                     loss_vector = None
                     grad = None
                     s = 0;
@@ -70,14 +61,11 @@ class LinearRegression:
 
                     grad = -s/num_samples_in_batch
 
-                    # ============================================================
-
                     self.W = optim.update(self.W, grad, lr)
 
     def analytic_solution(self, x, y):
         """
         The analytic solution of Linear Regression
-        Train the model using the analytic solution.
 
         [Inputs]
             x : input for linear regression. Numpy array of (N, D)
@@ -85,20 +73,13 @@ class LinearRegression:
 
         [Output]
             None
-
-        [Hints]
-            1. Use np.transpose for transposing a matrix.
-            2. Use np.linalg.inv for making a inverse matrix.
-            3. Use np.dot for performing a dot product between two matrices.
         """
 
-        # ========================= EDIT HERE ========================
         X_transpose = np.transpose(x)
         self.W = np.linalg.inv(X_transpose.dot(x))      #(X^T * X)^-1
         self.W = self.W.dot(X_transpose)                 #(X^T * X)^-1 * X^T
         self.W = self.W.dot(y)                           #(X^T * X)^-1 * X^T * y
 
-        # ============================================================
 
     def eval(self, x):
         pred = None
