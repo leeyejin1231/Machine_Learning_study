@@ -15,49 +15,12 @@ class ConvolutionLayer:
         self.pad = pad
 
     def forward(self, x):
-        ##################################################################################################
-        # Convolution Layer Forward.
-        # 
-        # [Input]
-        # x: 4-D input batch data
-        # - Shape : (Batch size, In Channel, Height, Width)
-        # 
-        # [Output]
-        # conv : convolution result
-        # - Shape : (Conv_Height, Conv_Width)
-        # - Conv_Height & Conv_Width can be calculated using 'Height', 'Width', 'W size', 'Stride'
-        # 
-        ##################################################################################################
         batch_size, in_channel, _, _ = x.shape
         conv = self.convolution(x, self.w, self.b, self.stride, self.pad)
         self.output_shape = conv.shape
         return conv
 
-    def convolution(self, x, w, b, stride=1, pad=0):
-        #########################################################################################################
-        # Convolution Operation.
-        # 
-        # [Input]
-        # x: 4-D input batch data
-        # - Shape : (Batch size, In Channel, Height, Width)
-        # w: 4-D convolution filter
-        # - Shape : (Out Channel, In Channel, Kernel Height, Kernel Width)
-        # b: 1-D bias
-        # - Shape : (Out Channel)
-        # - default : None
-        # stride : Stride size
-        # - dtype : int
-        # - default : 1
-        # pad: pad value, how much to pad around
-        # - dtype : int
-        # - default : 0
-        # 
-        # [Output]
-        # conv : convolution result
-        # - Shape : (Batch size, Out Channel, Conv_Height, Conv_Width)
-        # - Conv_Height & Conv_Width can be calculated using 'Height', 'Width', 'Kernel Height', 'Kernel Width'
-        #########################################################################################################
-        
+    def convolution(self, x, w, b, stride=1, pad=0):        
         # Check validity
         check_conv_validity(x, w, stride, pad)
 
